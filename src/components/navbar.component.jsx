@@ -9,6 +9,9 @@ export default class Navbar extends Component {
         <Link to="/" className="navbar-brand">CocoaBeach Db8 App</Link>
         <div className="collpase navbar-collapse">
         <ul className="navbar-nav mr-auto">
+          <li className='navbar-item'>
+          <Link to="/debaters/log" className="nav-link">Debater List</Link>
+          </li>
           <li className="navbar-item">
           <Link to="/" className="nav-link">Debaters</Link>
           </li>

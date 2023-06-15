@@ -12,7 +12,7 @@ const Debater = props => (
     <td>{props.debater.game3}</td>
     <td>{props.debater.game4}</td>
     <td>
-      <Link className="btn btn-secondary" to={"/"+props.debater._id}>edit</Link> | <a className= "btn btn-danger" href="#" onClick={() => { props.deleteDebater(props.debater._id) }}>delete</a>
+      <Link className="btn btn-secondary" to={"/debaters/update/"+props.debater._id}>edit</Link>  <a className= "btn btn-danger" href="#" onClick={() => { props.deleteDebater(props.debater._id) }}>delete</a>
     </td>
   </tr>
 )
@@ -72,9 +72,6 @@ export default class DebaterList extends Component {
             { this.debaterList() }
           </tbody>
         </table>
-      </div>
-      <div className='container'>
-        <h3>Add debater</h3>
       </div>
       </>
     )

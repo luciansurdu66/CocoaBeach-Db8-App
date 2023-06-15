@@ -14,12 +14,10 @@ export default function App() {
             <Navbar />
             <br />
             <Routes>
-              <Route path="/" element={<DebaterList />} />
-              <Route path="/update/:id" element={<EditDebater />} />
+              <Route path="/debaters/log" element={<DebaterList />} />
+              <Route path="/debaters/update/:id" element={<EditDebater />} />
               <Route path="/create" element={<CreateDebater />} />
             </Routes>
-            
-          
       </Router>
     </>
 

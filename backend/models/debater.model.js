@@ -3,7 +3,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const debaterSchema = new Schema({
-    name: {
+    firstname: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        minlength: 3
+    },
+    lastname: {
         type: String,
         required: true,
         unique: true,

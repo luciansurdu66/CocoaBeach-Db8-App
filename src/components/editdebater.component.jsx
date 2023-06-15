@@ -6,7 +6,8 @@ export default class EditDebater extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeFirstname = this.onChangeFirstname.bind(this);
+    this.onChangeLastname = this.onChangeLastname.bind(this);
     this.onChangeClub = this.onChangeClub.bind(this);
     this.onChangeCvpoints = this.onChangeCvpoints.bind(this);
     this.onChangeGame1 = this.onChangeGame1.bind(this);
@@ -26,9 +27,6 @@ export default class EditDebater extends Component {
     
   }
 
-  
-  
-
   componentDidMount() {
     const path = window.location.pathname;
     const variables = path.split("/");
@@ -36,7 +34,8 @@ export default class EditDebater extends Component {
     axios.get(`http://localhost:5000/debaters/${id}`)
       .then(response => {
         this.setState({
-          name: response.data.name,
+          firstname: response.data.firstname,
+          lastname: response.data.lastname,
           club: response.data.club,
           cvpoints: response.data.cvpoints,
           game1: response.data.game1,
@@ -51,9 +50,15 @@ export default class EditDebater extends Component {
 
   }
 
-  onChangeName(e) {
+  onChangeFirstname(e) { 
     this.setState({
-      name: e.target.value
+      firstname: e.target.value
+    })
+  }
+
+  onChangeLastname(e) {
+    this.setState({
+      lastname: e.target.value
     })
   }
 
@@ -96,7 +101,8 @@ export default class EditDebater extends Component {
     const variables = path.split("/");
     const id = variables[variables.length - 1];
     const debater = {
-      name: this.state.name,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
       club: this.state.club,
       cvpoints: this.state.cvpoints,
       game1: this.state.game1,
@@ -120,12 +126,21 @@ export default class EditDebater extends Component {
         <h3>Edit Debater Log</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
-            <label>Name: </label>
+            <label>Firstname: </label>
             <input type="text"
                    required
                    className='form-control'
-                   value={this.state.name}
-                   onChange={this.onChangeName}
+                   value={this.state.firstname}
+                   onChange={this.onChangeFirstname}
+                  />
+          </div>
+          <div className="form-group"> 
+            <label>Lastname: </label>
+            <input type="text"
+                   required
+                   className='form-control'
+                   value={this.state.lastname}
+                   onChange={this.onChangeLastname}
                   />
           </div>
           <div className="form-group"> 
@@ -178,6 +193,7 @@ export default class EditDebater extends Component {
                   onChange={this.onChangeGame4}
                   />
           </div>
+          <br />
           <div className="form-group">
             <input type="submit" value="Edit Debater Log" className="btn btn-primary" />
           </div>

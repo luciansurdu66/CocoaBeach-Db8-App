@@ -16,7 +16,7 @@ export default function App() {
             <Routes>
               <Route path="/debaters/log" element={<DebaterList />} />
               <Route path="/debaters/update/:id" element={<EditDebater />} />
-              <Route path="/create" element={<CreateDebater />} />
+              <Route path="/debaters/create" element={<CreateDebater />} />
             </Routes>
       </Router>
     </>

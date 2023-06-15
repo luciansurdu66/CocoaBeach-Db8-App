@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class CreateDebater extends Component{
   constructor(props){
     super(props);
 
-    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeFirstname = this.onChangeFirstname.bind(this);
+    this.onChangeLastname = this.onChangeLastname.bind(this);
     this.onChangeClub = this.onChangeClub.bind(this);
     this.onChangeCVPoints = this.onChangeCVPoints.bind(this);
     this.onChangeGame1 = this.onChangeGame1.bind(this);
     this.onChangeGame2 = this.onChangeGame2.bind(this);
     this.onChangeGame3 = this.onChangeGame3.bind(this);
     this.onChangeGame4 = this.onChangeGame4.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      name: '',
+      firstname: '',
+      lastname: '',
       club: '',
       cvpoints: 0,
       game1: 0,
@@ -26,135 +28,160 @@ export default class CreateDebater extends Component{
     }
   }
 
-  componentDidMount(){
-    axios.get('http://localhost:5000/debaters/')
-      .then(response => {
-        if(response.data.length > 0){
-          this.setState({
-            debaters: response.data.map(debater => debater.name),
-            name: response.data[0].name
-          })
-        }
-      })
+  onChangeFirstname(e){
+    this.setState({
+      firstname: e.target.value
+    });
   }
+
+  onChangeLastname(e){
+    this.setState({
+      lastname: e.target.value
+    });
+  }
+
+  onChangeClub(e){
+    this.setState({
+      club: e.target.value
+    });
+  }
+
+  onChangeCVPoints(e){
+    this.setState({
+      cvpoints: e.target.value
+    });
+  }
+
+  onChangeGame1(e){
+    this.setState({
+      game1: e.target.value
+    });
+  }
+
+  onChangeGame2(e){
+    this.setState({
+      game2: e.target.value
+    });
+  }
+
+  onChangeGame3(e){
+    this.setState({
+      game3: e.target.value
+    });
+  }
+
+  onChangeGame4(e){
+    this.setState({
+      game4: e.target.value
+    });
+  }
+
+  onSubmit(e){
+    e.preventDefault();
+    console.log(this.state);
+    const debater = {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      club: this.state.club,
+      cvpoints: this.state.cvpoints,
+      game1: this.state.game1,
+      game2: this.state.game2,
+      game3: this.state.game3,
+      game4: this.state.game4
+    }
+
+    console.log(debater);
+
+    axios.post('http://localhost:5000/debaters/add', debater)
+      .then(res => console.log(res.data));
+
+    window.location = '/debaters/log';
+  }
+
+  render(){
+    return (
+      <div className='container'>
+        <h3>Create New Debater</h3>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Firstname: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.firstname}
+              onChange={this.onChangeFirstname}
+              />
+          </div>
+          <div className='form-group'>
+            <label>Lastname: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.lastname}
+              onChange={this.onChangeLastname}
+              />
+          </div>
+          <div className="form-group">
+            <label>Club: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.club}
+              onChange={this.onChangeClub}
+              />
+          </div>
+          <div className="form-group">
+            <label>CV Points: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.cvpoints}
+              onChange={this.onChangeCVPoints}
+              />
+          </div>
+          <div className="form-group">
+            <label>Game 1: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.game1}
+              onChange={this.onChangeGame1}
+              />
+          </div>
+          <div className="form-group">
+            <label>Game 2: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.game2}
+              onChange={this.onChangeGame2}
+              />
+          </div>
+          <div className="form-group">
+            <label>Game 3: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.game3}
+              onChange={this.onChangeGame3}
+              />
+          </div>
+          <div className="form-group">
+            <label>Game 4: </label>
+            <input type="text"
+              required
+              className="form-control"
+              value={this.state.game4}
+              onChange={this.onChangeGame4}
+              />
+          </div>
+          <br />
+          <div className="form-group">
+            <input type="submit" value="Create Debater Log" className="btn btn-primary" />
+          </div>
+        </form>
+      </div>
+    )
+
 }
-
-// export default class CreateExercise extends Component {
-  
-
-//   componentDidMount() {
-//     axios.get('http://localhost:5000/users/')
-//       .then(response => {
-//         if (response.data.length > 0) {
-//           this.setState({
-//             users: response.data.map(user => user.username),
-//             username: response.data[0].username
-//           })
-//         }
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       })
-
-//   }
-
-//   onChangeUsername(e) {
-//     this.setState({
-//       username: e.target.value
-//     })
-//   }
-
-//   onChangeDescription(e) {
-//     this.setState({
-//       description: e.target.value
-//     })
-//   }
-
-//   onChangeDuration(e) {
-//     this.setState({
-//       duration: e.target.value
-//     })
-//   }
-
-//   onChangeDate(date) {
-//     this.setState({
-//       date: date
-//     })
-//   }
-
-//   onSubmit(e) {
-//     e.preventDefault();
-
-//     const exercise = {
-//       username: this.state.username,
-//       description: this.state.description,
-//       duration: this.state.duration,
-//       date: this.state.date
-//     }
-
-//     console.log(exercise);
-
-//     axios.post('http://localhost:5000/exercises/add', exercise)
-//       .then(res => console.log(res.data));
-
-//     window.location = '/';
-//   }
-
-//   render() {
-//     return (
-//     <div>
-//       <h3>Create New Exercise Log</h3>
-//       <form onSubmit={this.onSubmit}>
-//         <div className="form-group"> 
-//           <label>Username: </label>
-//           <select ref="userInput"
-//               required
-//               className="form-control"
-//               value={this.state.username}
-//               onChange={this.onChangeUsername}>
-//               {
-//                 this.state.users.map(function(user) {
-//                   return <option 
-//                     key={user}
-//                     value={user}>{user}
-//                     </option>;
-//                 })
-//               }
-//           </select>
-//         </div>
-//         <div className="form-group"> 
-//           <label>Description: </label>
-//           <input  type="text"
-//               required
-//               className="form-control"
-//               value={this.state.description}
-//               onChange={this.onChangeDescription}
-//               />
-//         </div>
-//         <div className="form-group">
-//           <label>Duration (in minutes): </label>
-//           <input 
-//               type="text" 
-//               className="form-control"
-//               value={this.state.duration}
-//               onChange={this.onChangeDuration}
-//               />
-//         </div>
-//         <div className="form-group">
-//           <label>Date: </label>
-//           <div>
-//             <DatePicker
-//               selected={this.state.date}
-//               onChange={this.onChangeDate}
-//             />
-//           </div>
-//         </div>
-
-//         <div className="form-group">
-//           <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
-//         </div>
-//       </form>
-//     </div>
-//     )
-//   }
-// }
+}
